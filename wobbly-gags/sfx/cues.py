@@ -59,3 +59,16 @@ CUES['Gag13'] = [
     (10.6, 'beep', 0.9, dict(d=0.35)), (11.0, 'stinger', 0.35),
 ]
 AMB['Gag13'] = 'night'
+
+# Gag14 when mum calls you
+CUES['Gag14'] = [
+    *[(0.2 + 0.11 * i, 'tick', 0.18, dict(pitch=0.5 + (i % 4) * 0.15)) for i in range(21)],
+    *[(0.3 + 0.5 * i, 'beep', 0.08, dict(d=0.08, pitch=0.6 + (i % 3) * 0.3)) for i in range(5)],
+    (2.6, 'hum', 0.9, dict(d=0.7, pitch=0.9)), (2.62, 'bonk', 0.3, dict(pitch=0.5)),
+    (3.3, 'riser', 0.3, dict(d=1.3)), (4.6, 'whoosh', 0.9, dict(d=0.25, pitch=1.6)), (5.0, 'thud', 0.6, dict(pitch=1.3)),
+    (5.05, 'whoosh', 0.6, dict(d=0.2, pitch=1.8)), (5.15, 'hum', 0.3, dict(d=0.5, pitch=1.6)),
+    (6.6, 'hum', 0.4, dict(d=0.4, pitch=0.9)), (6.7, 'thud', 0.3, dict(pitch=1.6)),
+    *[(8.0 + 0.5 * i, 'step', 0.22) for i in range(5)],
+    (10.4, 'stinger', 0.45), (10.4, 'buzz', 0.2, dict(d=0.6, pitch=0.6)),
+]
+AMB['Gag14'] = 'room'
