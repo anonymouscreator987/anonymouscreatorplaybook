@@ -19,3 +19,15 @@ CUES['Gag10'] = steps(0.3, 2.2) + [
     (11.6, 'stinger', 0.45),
 ]
 AMB['Gag10'] = 'outdoor'
+
+# Gag11 wet socks
+CUES['Gag11'] = steps(0.2, 2.3, 3.0, 0.2) + [
+    (0.3, 'hum', 0.2, dict(d=1.8, pitch=1.6)),
+    (2.3, 'splat', 0.9), (2.32, 'drip', 0.4),
+    (2.6, 'gasp', 0.45), (3.4, 'riser', 0.25, dict(d=1.2)),
+    *[(4.7 + 0.3 * i, 'boing', 0.25, dict(d=0.25, pitch=1.4 + 0.05 * i)) for i in range(6)],
+    (6.5, 'splat', 1.0, dict(pitch=0.8)), (6.55, 'drip', 0.4),
+    (7.0, 'stinger', 0.4),
+    *[(8.4 + 0.45 * i, 'splat', 0.35, dict(d=0.18, pitch=1.6)) for i in range(8)],
+]
+AMB['Gag11'] = 'room'

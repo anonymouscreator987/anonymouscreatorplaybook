@@ -128,7 +128,7 @@ export const Face: React.FC<{fp: FaceP; skin: string; uid: string; nomouth?: boo
 export type PP = {
   kind: 'teen' | 'mum'; x: number; s: number; hip: number; sy: number;
   lf: P; rf: P; lh: P; rh: P; fpl: number; fpr: number;
-  fp: FaceP; tilt: number; silh?: boolean; bob?: number; uid: string; flip?: boolean;
+  fp: FaceP; tilt: number; silh?: boolean; bob?: number; uid: string; flip?: boolean; socks?: [string, string];
 };
 export const Person: React.FC<PP> = (q) => {
   const teen = q.kind === 'teen';
@@ -152,8 +152,9 @@ export const Person: React.FC<PP> = (q) => {
   const shS: P[] = [[-20, neckY + 46], [24, neckY + 46]];
   const slipper = (h: P, pitch: number, key: string) => (
     <g key={key} transform={`translate(${h[0] - 6} ${h[1] + 10}) rotate(${pitch})`}>
-      <ellipse cx={26} cy={6} rx={62} ry={28} fill={shoe} stroke={ink} strokeWidth={7} />
-      {!si && [0, 1, 2].map((i) => <circle key={i} cx={52 + i * 6} cy={-6 + i * 8} r={11} fill={teen ? '#FFC2DA' : '#BFE0FA'} stroke={INK} strokeWidth={3} />)}
+      <ellipse cx={26} cy={6} rx={62} ry={28} fill={q.socks ? fill(q.socks[key === 'sl' ? 0 : 1]) : shoe} stroke={ink} strokeWidth={7} />
+      {q.socks && !si && <path d="M-20 -14 L-20 22 M-6 -18 L-6 24" stroke="#fff" strokeWidth={6} opacity={0.6} />}
+      {!si && !q.socks && [0, 1, 2].map((i) => <circle key={i} cx={52 + i * 6} cy={-6 + i * 8} r={11} fill={teen ? '#FFC2DA' : '#BFE0FA'} stroke={INK} strokeWidth={3} />)}
     </g>
   );
   const hand = (T: P, key: string) => {
