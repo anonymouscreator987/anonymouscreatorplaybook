@@ -11,6 +11,7 @@ Upload in this order (3 per day). Title is the YouTube title; use the channel up
 | 1 | renders/WG_surpriseparty.mp4 | 🚽 The bathroom lock broke... at MY surprise party 💀 | 20s |
 | 2 | renders/WG_examchoir.mp4 | 🤫 My stomach growled in a SILENT exam... and it answered 😭 | 24s |
 | 3 | renders/WG_selfcheckout.mp4 | 🍌 Self checkout vs ONE banana 🚨 | 24s |
+| 4 | renders/WG_waving.mp4 | 👋 She wasn't waving at me... (it cost me €47) | 23s |
 
 ## Rebuilding
 `project/` is a Remotion 4 project (`npm i`; font: Patrick Hand woff2 in `public/fonts/PatrickHand.woff2`).

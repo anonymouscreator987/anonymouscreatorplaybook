@@ -284,3 +284,72 @@ File: `silent/WG_selfcheckout_silent.mp4`
 | 19.90 | hum | 0.3 |
 
 </details>
+
+## She wasn't waving at me
+File: `silent/WG_waving_silent.mp4`
+
+**Direction:** Busy street ambience (traffic, distant chatter, birds). 0.1 teen happy "heyyy!" (real voice). 2.0-3.2 friend running footsteps. 3.2 excited squeal + hug. 4.6 record scratch + awkward silence. 4.8 tiny horrified gasp. 5.8 hair swoosh. 6.8 big fake yawn (real voice). 8.0 tentative "taxi?" mumble. 8.6 tyre screech + car stop. 9.1 one cricket while he stares at camera. 10.1 car door open/close. 11.0 car pulls away. 12.0-14.4 taxi meter clicking fast + cash register cha-ching at the end. 14.4 tyre screech again. 15.5 door. 16.8 lady "hiii!" toward him. 18.4 confused "me?" (real voice). 19.4 she turns away laughing. 20.0 sad trombone. 20.6 tyre screech + Gary's horn honk.
+
+<details><summary>Exact hit timings (seconds)</summary>
+
+| t | cue | gain |
+|---|---|---|
+| 0.10 | hum | 0.4 |
+| 1.20 | step | 0.2 |
+| 1.58 | step | 0.2 |
+| 1.97 | step | 0.2 |
+| 2.00 | step | 0.25 |
+| 2.20 | step | 0.25 |
+| 2.35 | step | 0.2 |
+| 2.40 | step | 0.25 |
+| 2.60 | step | 0.25 |
+| 2.74 | step | 0.2 |
+| 2.80 | step | 0.25 |
+| 3.00 | step | 0.25 |
+| 3.12 | step | 0.2 |
+| 3.20 | tada | 0.3 |
+| 3.40 | hum | 0.3 |
+| 4.60 | stinger | 0.35 |
+| 4.80 | gasp | 0.4 |
+| 5.80 | whoosh | 0.2 |
+| 6.80 | hum | 0.4 |
+| 8.00 | whoosh | 0.3 |
+| 8.60 | slide_down | 0.6 |
+| 8.65 | rumble | 0.4 |
+| 10.10 | thud | 0.4 |
+| 10.90 | thud | 0.6 |
+| 11.00 | rumble | 0.5 |
+| 12.00 | tick | 0.25 |
+| 12.11 | tick | 0.25 |
+| 12.22 | tick | 0.25 |
+| 12.33 | tick | 0.25 |
+| 12.44 | tick | 0.25 |
+| 12.55 | tick | 0.25 |
+| 12.66 | tick | 0.25 |
+| 12.77 | tick | 0.25 |
+| 12.88 | tick | 0.25 |
+| 12.99 | tick | 0.25 |
+| 13.10 | tick | 0.25 |
+| 13.21 | tick | 0.25 |
+| 13.32 | tick | 0.25 |
+| 13.43 | tick | 0.25 |
+| 13.54 | tick | 0.25 |
+| 13.65 | tick | 0.25 |
+| 13.76 | tick | 0.25 |
+| 13.87 | tick | 0.25 |
+| 13.98 | tick | 0.25 |
+| 14.09 | tick | 0.25 |
+| 14.20 | tick | 0.25 |
+| 14.31 | tick | 0.25 |
+| 14.40 | slide_down | 0.6 |
+| 15.50 | thud | 0.4 |
+| 15.80 | rumble | 0.5 |
+| 16.80 | hum | 0.3 |
+| 17.40 | whoosh | 0.2 |
+| 18.40 | hum | 0.3 |
+| 19.40 | whoosh | 0.2 |
+| 20.00 | stinger | 0.3 |
+| 20.60 | slide_down | 0.6 |
+| 21.20 | thud | 0.3 |
+
+</details>
