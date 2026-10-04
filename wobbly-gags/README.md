@@ -8,13 +8,7 @@ Upload in this order (3 per day). Title is the YouTube title; use the channel up
 
 | # | File | Title | Length |
 |---|---|---|---|
-| 1 | renders/WG_pushpull.mp4 | 🚪 Push or pull? (funny cartoon) | 13s |
-| 2 | renders/WG_wetsocks.mp4 | 🧦 Stepped in water. In socks. (funny cartoon) | 12s |
-| 3 | renders/WG_spider.mp4 | 🕷️ Spider in my room (funny cartoon) | 13s |
-| 4 | renders/WG_microwave.mp4 | ⏱️ Stopping the microwave at 0:01 (funny cartoon) | 12s |
-| 5 | renders/WG_mumcalls.mp4 | 🏃 When mum calls you (funny cartoon) | 13s |
-| 6 | renders/WG_charger.mp4 | 🔌 When the charger cable is too short (funny cartoon) | 13s |
-| 7 | renders/WG_bus.mp4 | 🚌 The bus is "on time" (funny cartoon) | 14s |
+| 1 | renders/WG_surpriseparty.mp4 | 🚽 The bathroom lock broke... at MY surprise party 💀 | 20s |
 
 ## Rebuilding
 `project/` is a Remotion 4 project (`npm i`; font: Patrick Hand woff2 in `public/fonts/PatrickHand.woff2`).

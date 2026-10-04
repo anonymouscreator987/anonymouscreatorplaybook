@@ -128,7 +128,7 @@ export const Face: React.FC<{fp: FaceP; skin: string; uid: string; nomouth?: boo
 export type PP = {
   kind: 'teen' | 'mum'; x: number; s: number; hip: number; sy: number;
   lf: P; rf: P; lh: P; rh: P; fpl: number; fpr: number;
-  fp: FaceP; tilt: number; silh?: boolean; bob?: number; uid: string; flip?: boolean; socks?: [string, string]; look?: {top?: string; top2?: string; pants?: string; shoe?: string; hair?: string; skin?: string; tie?: string; shades?: boolean; cap?: string};
+  fp: FaceP; tilt: number; silh?: boolean; bob?: number; uid: string; flip?: boolean; socks?: [string, string]; look?: {top?: string; top2?: string; pants?: string; shoe?: string; hair?: string; skin?: string; tie?: string; shades?: boolean; cap?: string; nocurl?: boolean}; legK?: number;
 };
 export const Person: React.FC<PP> = (q) => {
   const teen = q.kind === 'teen';
@@ -140,6 +140,7 @@ export const Person: React.FC<PP> = (q) => {
   const fx = q.flip ? -1 : 1;
   const loc = (p: P): P => [((p[0] - q.x) / sxx) * fx, (p[1] - G) / syy];
   const L = teen ? 170 : 160, AL = teen ? 135 : 120;
+  const LR = L * (q.legK || 1);
   const hip = q.hip, torso = teen ? 270 : 250, neckY = hip - torso;
   const L0 = q.look || {};
   const skin = fill(L0.skin || SKIN);
@@ -149,7 +150,7 @@ export const Person: React.FC<PP> = (q) => {
   const top2 = fill(L0.top2 || (teen ? '#8E95A1' : '#A965B3'));
   const lf = loc(q.lf), rf = loc(q.rf), lh = loc(q.lh), rh = loc(q.rh);
   const legL = ik([-14, hip], [lf[0], lf[1] - 22], -1, L, L);
-  const legR = ik([14, hip], [rf[0], rf[1] - 22], -1, L, L);
+  const legR = ik([14, hip], [rf[0], rf[1] - 22], -1, LR, LR);
   const shS: P[] = [[-20, neckY + 46], [24, neckY + 46]];
   const slipper = (h: P, pitch: number, key: string) => (
     <g key={key} transform={`translate(${h[0] - 6} ${h[1] + 10}) rotate(${pitch})`}>
@@ -175,7 +176,7 @@ export const Person: React.FC<PP> = (q) => {
       {/* legs */}
       <Limb S={[-14, hip]} T={[lf[0], lf[1] - 22]} bend={-1} L1={L} L2={L} w={teen ? 26 : 30} col={pants} ink={ink} />
       {slipper(legL.h, q.fpl, 'sl')}
-      <Limb S={[14, hip]} T={[rf[0], rf[1] - 22]} bend={-1} L1={L} L2={L} w={teen ? 26 : 30} col={pants} ink={ink} />
+      <Limb S={[14, hip]} T={[rf[0], rf[1] - 22]} bend={-1} L1={LR} L2={LR} w={teen ? 26 : 30} col={pants} ink={ink} />
       {slipper(legR.h, q.fpr, 'sr')}
       {/* hood ring */}
       {teen && <path d={`M-70 ${neckY + 20} Q-92 ${neckY - 50} 0 ${neckY - 62} Q92 ${neckY - 50} 70 ${neckY + 20}Z`} fill={top2} stroke={ink} strokeWidth={8} strokeLinejoin="round" />}
@@ -198,17 +199,17 @@ export const Person: React.FC<PP> = (q) => {
       <path d={`M6 ${neckY + 10} L6 ${headY + 70}`} stroke={ink} strokeWidth={teen ? 34 : 38} strokeLinecap="round" />
       <path d={`M6 ${neckY + 10} L6 ${headY + 70}`} stroke={skin} strokeWidth={teen ? 20 : 24} strokeLinecap="round" />
       <g transform={`translate(0 ${headY}) rotate(${q.tilt})`}>
-        {!teen && !si && <ellipse cx={0} cy={6} rx={118} ry={118} fill="#6B3B2A" stroke={INK} strokeWidth={8} />}
+        {!teen && !si && <ellipse cx={0} cy={6} rx={118} ry={118} fill={L0.hair || '#6B3B2A'} stroke={INK} strokeWidth={8} />}
         {!teen && si && <ellipse cx={0} cy={6} rx={118} ry={118} fill={SIL} stroke={ink} strokeWidth={8} />}
         <ellipse cx={0} cy={0} rx={teen ? 104 : 100} ry={teen ? 124 : 112} fill={skin} stroke={ink} strokeWidth={8} />
         {teen ? (
           <path d="M-96 -30 Q-110 -120 -20 -122 Q60 -140 98 -60 Q60 -78 20 -66 Q-30 -88 -60 -52 Q-80 -50 -96 -30Z" fill={fill(L0.hair || '#3B2A24')} stroke={ink} strokeWidth={7} strokeLinejoin="round" />
         ) : (
           <g>
-            {['#F7A6C8', '#8FD3F4', '#F7E27A', '#A7E3A0', '#F7A6C8'].map((c, i) => (
+            {!L0.nocurl && ['#F7A6C8', '#8FD3F4', '#F7E27A', '#A7E3A0', '#F7A6C8'].map((c, i) => (
               <rect key={i} x={-36} y={-18} width={72} height={34} rx={17} fill={fill(c)} stroke={ink} strokeWidth={6} transform={`translate(${-70 + i * 36} ${-112 + Math.abs(i - 2) * 18}) rotate(${-50 + i * 25})`} />
             ))}
-            <path d="M-100 -20 Q-60 -64 0 -58 Q60 -64 100 -20 Q50 -34 0 -30 Q-50 -34 -100 -20Z" fill={fill('#6B3B2A')} stroke={ink} strokeWidth={6} />
+            <path d="M-100 -20 Q-60 -64 0 -58 Q60 -64 100 -20 Q50 -34 0 -30 Q-50 -34 -100 -20Z" fill={fill(L0.hair || '#6B3B2A')} stroke={ink} strokeWidth={6} />
           </g>
         )}
         {!si && <Face fp={q.fp} skin={L0.skin || SKIN} uid={q.uid} />}
@@ -288,13 +289,15 @@ export const Defs: React.FC<{f: number}> = ({f}) => {
 // Wraps a scene: font, defs, camera, title card, watermark, subscribe banner, grain.
 export const Shell: React.FC<{
   title: string; dur: number; bg: string; cam?: {cx: number; cy: number; z: number; sh?: number};
-  children: React.ReactNode; overlay?: React.ReactNode; flash?: number; vig?: boolean;
-}> = ({title, dur, bg, cam = {cx: 540, cy: 960, z: 1}, children, overlay, flash = 0, vig = true}) => {
+  children: React.ReactNode; overlay?: React.ReactNode; flash?: number; vig?: boolean; hook?: string; hookLen?: number; caption?: string;
+}> = ({title, dur, bg, cam = {cx: 540, cy: 960, z: 1}, children, overlay, flash = 0, vig = true, hook, hookLen = 0, caption}) => {
   const f = useCurrentFrame();
   const t = f / FPS;
   const sh = (cam.sh || 0) * (f % 2 ? 1 : -1);
   const camT = `translate(540 960) scale(${cam.z}) translate(${-cam.cx + sh * 0.6} ${-cam.cy + sh * (f % 3 ? 0.5 : -0.5)})`;
-  const titleOp = t < 1.0 ? 1 : K(t, [[1.0, 1], [1.2, 0]], (x) => x);
+  const titleOp = hook || !title ? 0 : t < 1.0 ? 1 : K(t, [[1.0, 1], [1.2, 0]], (x) => x);
+  const inHook = hook && t < hookLen;
+  const rw = hook ? t - (hookLen - 0.35) : -1;
   const bannerT = t - (dur - 1.2);
   const fs = title.length > 22 ? 84 : title.length > 17 ? 96 : 112;
   return (
@@ -320,6 +323,28 @@ export const Shell: React.FC<{
               <path d="M0 -34 C-22 -34 -26 -14 -26 4 L-26 14 L-38 26 L38 26 L26 14 L26 4 C26 -14 22 -34 0 -34Z" fill="#F2D54A" stroke="#fff" strokeWidth={3} />
               <circle cx={0} cy={34} r={8} fill="#F2D54A" />
             </g>
+          </g>
+        )}
+        {inHook && (
+          <g>
+            <rect x={60} y={120} width={960} height={hook.length > 30 ? 230 : 150} rx={24} fill="#fff" stroke={INK} strokeWidth={8} />
+            <foreignObject x={80} y={130} width={920} height={hook.length > 30 ? 210 : 130}>
+              <div style={{fontFamily: 'PH', fontSize: 64, lineHeight: '66px', color: INK, textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'}}>{hook}</div>
+            </foreignObject>
+          </g>
+        )}
+        {rw > 0 && rw < 0.45 && (
+          <g>
+            <rect x={0} y={0} width={1080} height={1920} fill="#000" opacity={0.35} />
+            {Array.from({length: 9}).map((_, i) => <rect key={i} x={0} y={((i * 233 + f * 97) % 1920)} width={1080} height={14} fill="#fff" opacity={0.5} />)}
+            <text x={540} y={1000} textAnchor="middle" fontFamily="PH" fontSize={150} fill="#fff" stroke={INK} strokeWidth={10} paintOrder="stroke">◀◀</text>
+          </g>
+        )}
+        {caption && !inHook && (
+          <g>
+            <foreignObject x={60} y={150} width={960} height={240}>
+              <div style={{fontFamily: 'PH', fontSize: 76, lineHeight: '80px', color: '#fff', textAlign: 'center', WebkitTextStroke: `10px ${INK}`, paintOrder: 'stroke fill'}}>{caption}</div>
+            </foreignObject>
           </g>
         )}
         <rect x={0} y={0} width={1080} height={1920} filter="url(#grain)" />
@@ -357,3 +382,11 @@ export const Room: React.FC<{wall: string; floor: string; trim?: string}> = ({wa
     {[0, 1, 2, 3].map((i) => <line key={i} x1={-300} y1={G + 70 + i * 90} x2={1500} y2={G + 70 + i * 90} stroke="#000" strokeWidth={3} opacity={0.08} />)}
   </g>
 );
+
+// Hook helper: during the first hookLen seconds the scene plays a slow-mo flash-forward from hookAt,
+// then a short rewind, then the story from 0. Returns story time.
+export const storyTime = (t: number, hookLen: number, hookAt: number) => {
+  if (t < hookLen - 0.35) return hookAt + t * 0.35;
+  if (t < hookLen) return lerp(hookAt + (hookLen - 0.35) * 0.35, 0, (t - (hookLen - 0.35)) / 0.35);
+  return t - hookLen;
+};

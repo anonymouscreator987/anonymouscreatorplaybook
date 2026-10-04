@@ -7,6 +7,7 @@ import {Gag13, GAG13_FRAMES} from './styles/Gag13';
 import {Gag14, GAG14_FRAMES} from './styles/Gag14';
 import {Gag15, GAG15_FRAMES} from './styles/Gag15';
 import {Gag16, GAG16_FRAMES} from './styles/Gag16';
+import {Gag17, GAG17_FRAMES} from './styles/Gag17';
 import {Gag9, GAG9_FRAMES} from './styles/Gag9';
 export const RemotionRoot: React.FC = () => (<>
   <Composition id="Gag10" component={Gag10} width={1080} height={1920} fps={30} durationInFrames={GAG10_FRAMES} />
@@ -16,5 +17,6 @@ export const RemotionRoot: React.FC = () => (<>
   <Composition id="Gag14" component={Gag14} width={1080} height={1920} fps={30} durationInFrames={GAG14_FRAMES} />
   <Composition id="Gag15" component={Gag15} width={1080} height={1920} fps={30} durationInFrames={GAG15_FRAMES} />
   <Composition id="Gag16" component={Gag16} width={1080} height={1920} fps={30} durationInFrames={GAG16_FRAMES} />
+  <Composition id="Gag17" component={Gag17} width={1080} height={1920} fps={30} durationInFrames={GAG17_FRAMES} />
   <Composition id="Gag9" component={Gag9} width={1080} height={1920} fps={30} durationInFrames={GAG9_FRAMES} />
 </>);

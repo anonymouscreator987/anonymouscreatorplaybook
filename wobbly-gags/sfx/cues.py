@@ -98,3 +98,19 @@ CUES['Gag16'] = [
     (11.0, 'pop', 0.4), *steps(11.3, 13.5, 2.6, 0.2),
 ]
 AMB['Gag16'] = 'rain:8.2'
+
+# Gag17 toilet surprise party
+CUES['Gag17'] = [
+    (0.1, 'tick', 0.9, dict(pitch=0.7)), (0.15, 'ding', 0.25, dict(d=0.4, pitch=1.6)), (1.25, 'whoosh', 0.3), (1.7, 'bonk', 0.4, dict(pitch=1.8)),
+    *steps(1.8, 2.7, 3.0, 0.22), (3.0, 'thud', 0.3, dict(pitch=1.4)),
+    *[(3.2 + 0.4 * i, 'tick', 0.12, dict(pitch=1.5)) for i in range(4)], (3.3, 'hum', 0.15, dict(d=1.2, pitch=1.4)),
+    *[(4.6 + 0.07 * i, 'tick', 0.5, dict(pitch=0.5 + (i % 2) * 0.3)) for i in range(10)],
+    (4.9, 'gasp', 0.5), (5.4, 'slide_up', 0.5, dict(d=0.6, pitch=0.8)), (6.0, 'thud', 0.4, dict(pitch=1.3)),
+    (6.5, 'hum', 0.6, dict(d=0.7, pitch=1.8)),
+    *[(k, 'thud', 0.7, dict(pitch=1.2)) for k in (7.2, 7.8, 8.4, 8.8)],
+    (9.2, 'crash', 0.9), (9.25, 'boing', 0.6, dict(pitch=0.8)), (9.4, 'tada', 0.6), (9.7, 'hum', 0.4, dict(d=0.5, pitch=1.2)),
+    (10.1, 'stinger', 0.4), (11.1, 'hum', 0.25, dict(d=0.3, pitch=1.6)),
+    (11.9, 'pop', 0.6, dict(pitch=0.5)), (11.92, 'whoosh', 0.3, dict(d=0.2, pitch=2)),
+    (12.3, 'whoosh', 0.4), (15.2, 'chime', 0.4), (16.0, 'hum', 0.15, dict(d=2.0, pitch=0.9)),
+]
+AMB['Gag17'] = 'room'
