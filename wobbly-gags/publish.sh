@@ -1,6 +1,6 @@
 #!/bin/bash
 # publish.sh "commit msg" : sync renders+source into repo, rebuild README queue, push
-R=/home/user/anonymouscreatorplaybook/wobbly-gags; S=/home/user/wg/el
+R=/home/user/anonymouscreatorplaybook/wobbly-gags; S=/home/user/wg/el; mkdir -p $R/renders
 cp -u /home/user/wg/WG/*.mp4 $R/renders/; cp $S/proj/src/styles/*.tsx $R/project/src/styles/; cp $S/proj/src/Root.tsx $R/project/src/
 cp $S/sfx/*.py $R/sfx/; cp $S/*.sh $R/; cp $S/titles.tsv $R/
 python3 - <<'PY'
