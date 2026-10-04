@@ -47,3 +47,15 @@ CUES['Gag12'] = steps(0.15, 1.4, 3.0, 0.2) + [
     (10.4, 'gasp', 0.5), (10.8, 'thud', 1.0, dict(pitch=0.8)), (11.2, 'stinger', 0.4),
 ]
 AMB['Gag12'] = 'room'
+
+# Gag13 microwave
+CUES['Gag13'] = [
+    (1.2, 'beep', 0.15, dict(d=0.08, pitch=1.4)), (1.25, 'rumble', 0.35, dict(d=3.6, pitch=2.5)),
+    *[(1.2 + 0.75 * i, 'tick', 0.3) for i in range(5)],
+    (3.2, 'riser', 0.3, dict(d=1.6)), (4.85, 'tick', 0.8, dict(pitch=0.6)), (4.86, 'pop', 0.3),
+    (5.3, 'hum', 0.2, dict(d=0.6, pitch=1.5)), (5.9, 'tada', 0.2, dict(pitch=0.8)),
+    (6.4, 'beep', 0.9, dict(d=0.35)), (6.75, 'tick', 0.8, dict(pitch=0.5)), (6.8, 'thud', 0.4, dict(pitch=1.5)),
+    (7.6, 'riser', 0.15, dict(d=0.8, pitch=0.5)), (8.7, 'gulp', 0.5),
+    (10.6, 'beep', 0.9, dict(d=0.35)), (11.0, 'stinger', 0.35),
+]
+AMB['Gag13'] = 'night'
