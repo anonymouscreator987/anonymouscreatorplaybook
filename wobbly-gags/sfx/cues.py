@@ -31,3 +31,19 @@ CUES['Gag11'] = steps(0.2, 2.3, 3.0, 0.2) + [
     *[(8.4 + 0.45 * i, 'splat', 0.35, dict(d=0.18, pitch=1.6)) for i in range(8)],
 ]
 AMB['Gag11'] = 'room'
+
+# Gag12 spider
+CUES['Gag12'] = steps(0.15, 1.4, 3.0, 0.2) + [
+    (1.4, 'gasp', 0.5), (1.6, 'riser', 0.25, dict(d=0.5)), (1.65, 'squeak', 0.3, dict(pitch=1.3)),
+    (2.2, 'slide_up', 0.6, dict(d=0.5, pitch=1.2)),
+    (2.7, 'whoosh', 0.6), (3.15, 'thud', 0.7), (3.2, 'slide_up', 0.5, dict(d=0.8, pitch=1.4)),
+    *steps(4.4, 5.8, 3.0, 0.2, 1.2),
+    (6.0, 'pop', 0.4), (6.5, 'whoosh', 0.3),
+    (7.0, 'hum', 0.2, dict(d=0.4, pitch=0.9)),
+    *steps(7.9, 9.2, 3.0, 0.2, 1.2),
+    (8.0, 'hum', 0.25, dict(d=0.5, pitch=1.6)),
+    (8.6, 'step', 0.4), (9.0, 'step', 0.4),
+    (9.6, 'slide_down', 0.35, dict(d=0.5, pitch=1.6)), (10.0, 'boing', 0.3, dict(pitch=2)), (10.2, 'squeak', 0.3, dict(pitch=1.6)),
+    (10.4, 'gasp', 0.5), (10.8, 'thud', 1.0, dict(pitch=0.8)), (11.2, 'stinger', 0.4),
+]
+AMB['Gag12'] = 'room'
