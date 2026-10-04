@@ -1,0 +1,27 @@
+{
+  "name": "abyss-protocol-video-1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Abyss Protocol, Video #1: You Fall Into a Black Hole. Remotion source (silent build).",
+  "type": "module",
+  "scripts": {
+    "start": "remotion studio",
+    "captions": "node scripts/make-captions.mjs",
+    "typecheck": "tsc --noEmit",
+    "render": "remotion render Video1 out/video1.mp4",
+    "render:preview": "remotion render Video1 out/video1_silent_preview.mp4 --scale=0.25 --concurrency=4",
+    "stills": "node scripts/render-stills.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.532",
+    "@remotion/google-fonts": "4.0.532",
+    "@remotion/transitions": "4.0.532",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.532"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "typescript": "5.6.3"
+  }
+}
