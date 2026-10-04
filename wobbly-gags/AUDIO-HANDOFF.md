@@ -1,133 +1,286 @@
-# Audio handoff: real SFX for cloud renders
+# Audio handoff: add real SFX, then upload
 
-The cloud session could not download real sound packs (network policy), so these videos have placeholder synth audio.
-Re-mux each `silent/` video with real recorded sounds (Kenney packs + voice grunts/screams/crowd) at these times, then replace the file in `renders/`.
-Voice cues (gasp, mumble, scream, crowd) matter most: use real human voice recordings.
+These videos were animated in a cloud session that could not download sound packs. Each `silent/WG_<name>_silent.mp4` is the master with no audio.
+For each video: build a soundtrack from REAL recorded sounds (Kenney impact/foley packs, real human voices for screams, gasps, talking, crowd, laughs) following the direction and timing below, mux it onto the silent master (AAC 160k stereo, `-shortest`, `+faststart`), keep loudness around -16 to -20 dB mean, and save it as `WG_<name>.mp4`.
+The `renders/` copies have placeholder synth audio for preview only: do not upload those.
 
-## WG_surpriseparty (silent/WG_surpriseparty_silent.mp4)
+## The bathroom lock broke... at MY surprise party
+File: `silent/WG_surpriseparty_silent.mp4`
 
-Add: muffled party chatter behind the door 4.0-9.2s, crowd "SURPRISE!" shout at 9.4s cut off at 9.9s, awkward silence 10-11s, camera shutter at 11.9s.
+**Direction:** Bathroom echo room tone. 0.1s metal lock clink + drop. 3.2-4.6 phone scroll taps + happy hum. 4.0-9.2 muffled party chatter/whispers behind the door. 4.6 door handle rattle. 5.4 cartoon stretch/slide whistle for the leg. 6.5 teen yells "OCCUPIED!" (real voice). 7.2/7.8/8.4/8.8 heavy door knocks. 9.2 door bursts open (bang). 9.4 crowd shouts "SURPRI-" and cuts off. 10-11 dead awkward silence + one cricket. 11.1 weak "...hi". 11.9 camera shutter + flash whine. 12.3 photo whoosh. 15.2 soft sentimental music sting for the fridge.
 
-| time (s) | sound | gain |
+<details><summary>Exact hit timings (seconds)</summary>
+
+| t | cue | gain |
 |---|---|---|
-| 0.10 | click / rattle | 0.9 |
-| 0.15 | bell ding | 0.25 |
-| 1.25 | whoosh / swish | 0.3 |
-| 1.70 | impactMetal / head bonk | 0.4 |
-| 1.80 | footstep | 0.22 |
-| 2.13 | footstep | 0.22 |
-| 2.47 | footstep | 0.22 |
-| 3.00 | impactSoft_heavy / body fall | 0.3 |
-| 3.20 | click / rattle | 0.12 |
-| 3.30 | voice: mumble / talking | 0.15 |
-| 3.60 | click / rattle | 0.12 |
-| 4.00 | click / rattle | 0.12 |
-| 4.40 | click / rattle | 0.12 |
-| 4.60 | click / rattle | 0.5 |
-| 4.67 | click / rattle | 0.5 |
-| 4.74 | click / rattle | 0.5 |
-| 4.81 | click / rattle | 0.5 |
-| 4.88 | click / rattle | 0.5 |
-| 4.90 | voice: gasp | 0.5 |
-| 4.95 | click / rattle | 0.5 |
-| 5.02 | click / rattle | 0.5 |
-| 5.09 | click / rattle | 0.5 |
-| 5.16 | click / rattle | 0.5 |
-| 5.23 | click / rattle | 0.5 |
-| 5.40 | slide whistle up | 0.5 |
-| 6.00 | impactSoft_heavy / body fall | 0.4 |
-| 6.50 | voice: mumble / talking | 0.6 |
-| 7.20 | impactSoft_heavy / body fall | 0.7 |
-| 7.80 | impactSoft_heavy / body fall | 0.7 |
-| 8.40 | impactSoft_heavy / body fall | 0.7 |
-| 8.80 | impactSoft_heavy / body fall | 0.7 |
-| 9.20 | door slam / crash | 0.9 |
-| 9.25 | cartoon boing | 0.6 |
-| 9.40 | crowd cheer / ta-da | 0.6 |
-| 9.70 | voice: mumble / talking | 0.4 |
-| 10.10 | sad trombone | 0.4 |
-| 11.10 | voice: mumble / talking | 0.25 |
-| 11.90 | pop / camera click | 0.6 |
-| 11.92 | whoosh / swish | 0.3 |
-| 12.30 | whoosh / swish | 0.4 |
-| 15.20 | shop bell / chime | 0.4 |
-| 16.00 | voice: mumble / talking | 0.15 |
+| 0.10 | tick | 0.9 |
+| 0.15 | ding | 0.25 |
+| 1.25 | whoosh | 0.3 |
+| 1.70 | bonk | 0.4 |
+| 1.80 | step | 0.22 |
+| 2.13 | step | 0.22 |
+| 2.47 | step | 0.22 |
+| 3.00 | thud | 0.3 |
+| 3.20 | tick | 0.12 |
+| 3.30 | hum | 0.15 |
+| 3.60 | tick | 0.12 |
+| 4.00 | tick | 0.12 |
+| 4.40 | tick | 0.12 |
+| 4.60 | tick | 0.5 |
+| 4.67 | tick | 0.5 |
+| 4.74 | tick | 0.5 |
+| 4.81 | tick | 0.5 |
+| 4.88 | tick | 0.5 |
+| 4.90 | gasp | 0.5 |
+| 4.95 | tick | 0.5 |
+| 5.02 | tick | 0.5 |
+| 5.09 | tick | 0.5 |
+| 5.16 | tick | 0.5 |
+| 5.23 | tick | 0.5 |
+| 5.40 | slide_up | 0.5 |
+| 6.00 | thud | 0.4 |
+| 6.50 | hum | 0.6 |
+| 7.20 | thud | 0.7 |
+| 7.80 | thud | 0.7 |
+| 8.40 | thud | 0.7 |
+| 8.80 | thud | 0.7 |
+| 9.20 | crash | 0.9 |
+| 9.25 | boing | 0.6 |
+| 9.40 | tada | 0.6 |
+| 9.70 | hum | 0.4 |
+| 10.10 | stinger | 0.4 |
+| 11.10 | hum | 0.25 |
+| 11.90 | pop | 0.6 |
+| 11.92 | whoosh | 0.3 |
+| 12.30 | whoosh | 0.4 |
+| 15.20 | chime | 0.4 |
+| 16.00 | hum | 0.15 |
 
-## WG_examchoir (silent/WG_examchoir_silent.mp4)
+</details>
 
-Add: classroom silence/clock tick ambience, nervous gulp 1.0s, kids giggling 7.0-9.0s, the choir section 12.5-19.5s as a stomach-growl melody, crowd applause 19.6s+.
+## My stomach growled in a SILENT exam... and it answered
+File: `silent/WG_examchoir_silent.mp4`
 
-| time (s) | sound | gain |
+**Direction:** Quiet classroom: clock ticking, pencil scratching. 0.0 long loud stomach growl (real). 0.6 gasp + students turning. 3.0 fake cough (real voice). 4.6 bigger stomach growl. 6.2 smaller higher growl from the girl. 7.6-8.9 two-three growls answering each other, kids stifling giggles. 9.4 chair scrape as teacher stands. 10.6 HUGE deep growl from teacher. 11.7 one cricket. 12.5-19.5 stomach-growl melody (pitched growls) with a beat. 19.6+ big crowd applause + cheering for the concert.
+
+<details><summary>Exact hit timings (seconds)</summary>
+
+| t | cue | gain |
 |---|---|---|
-| 0.00 | stomach growl | 1.0 |
-| 0.60 | voice: gasp | 0.25 |
-| 1.60 | click / rattle | 0.12 |
-| 2.10 | click / rattle | 0.12 |
-| 2.60 | click / rattle | 0.12 |
+| 0.00 | growl | 1.0 |
+| 0.60 | gasp | 0.25 |
+| 1.60 | tick | 0.12 |
+| 2.10 | tick | 0.12 |
+| 2.60 | tick | 0.12 |
 | 3.00 | buzz | 0.4 |
-| 3.05 | voice: mumble / talking | 0.5 |
-| 4.60 | stomach growl | 1.0 |
-| 6.20 | stomach growl | 0.8 |
-| 7.60 | stomach growl | 0.8 |
-| 8.10 | stomach growl | 0.7 |
-| 8.50 | stomach growl | 0.7 |
-| 9.40 | impactSoft_heavy / body fall | 0.4 |
-| 9.60 | tension riser | 0.25 |
-| 10.60 | stomach growl | 1.0 |
-| 11.70 | sad trombone | 0.25 |
-| 12.50 | stomach growl (musical, pitched) | 0.7 |
-| 12.50 | impactSoft_heavy / body fall | 0.3 |
-| 12.95 | stomach growl (musical, pitched) | 0.7 |
-| 13.41 | stomach growl (musical, pitched) | 0.7 |
-| 13.41 | impactSoft_heavy / body fall | 0.3 |
-| 13.86 | stomach growl (musical, pitched) | 0.7 |
-| 14.32 | stomach growl (musical, pitched) | 0.7 |
-| 14.32 | impactSoft_heavy / body fall | 0.3 |
-| 14.77 | stomach growl (musical, pitched) | 0.7 |
-| 15.23 | stomach growl (musical, pitched) | 0.7 |
-| 15.23 | impactSoft_heavy / body fall | 0.3 |
-| 15.68 | stomach growl (musical, pitched) | 0.7 |
-| 16.14 | stomach growl (musical, pitched) | 0.7 |
-| 16.14 | impactSoft_heavy / body fall | 0.3 |
-| 16.59 | stomach growl (musical, pitched) | 0.7 |
-| 17.05 | stomach growl (musical, pitched) | 0.7 |
-| 17.05 | impactSoft_heavy / body fall | 0.3 |
-| 17.50 | stomach growl (musical, pitched) | 0.7 |
-| 17.95 | stomach growl (musical, pitched) | 0.7 |
-| 17.95 | impactSoft_heavy / body fall | 0.3 |
-| 18.41 | stomach growl (musical, pitched) | 0.7 |
-| 18.86 | stomach growl (musical, pitched) | 0.7 |
-| 18.86 | impactSoft_heavy / body fall | 0.3 |
-| 19.32 | stomach growl (musical, pitched) | 0.7 |
-| 19.60 | crowd cheer / ta-da | 0.6 |
-| 19.77 | stomach growl (musical, pitched) | 0.7 |
-| 19.80 | voice: mumble / talking | 0.3 |
-| 19.90 | click / rattle | 0.15 |
-| 20.02 | click / rattle | 0.15 |
-| 20.14 | click / rattle | 0.15 |
-| 20.23 | stomach growl (musical, pitched) | 0.7 |
-| 20.26 | click / rattle | 0.15 |
-| 20.38 | click / rattle | 0.15 |
-| 20.50 | click / rattle | 0.15 |
-| 20.62 | click / rattle | 0.15 |
-| 20.68 | stomach growl (musical, pitched) | 0.7 |
-| 20.74 | click / rattle | 0.15 |
-| 20.86 | click / rattle | 0.15 |
-| 20.98 | click / rattle | 0.15 |
-| 21.10 | click / rattle | 0.15 |
-| 21.14 | stomach growl (musical, pitched) | 0.7 |
-| 21.22 | click / rattle | 0.15 |
-| 21.34 | click / rattle | 0.15 |
-| 21.46 | click / rattle | 0.15 |
-| 21.58 | click / rattle | 0.15 |
-| 21.59 | stomach growl (musical, pitched) | 0.7 |
-| 21.70 | click / rattle | 0.15 |
-| 21.82 | click / rattle | 0.15 |
-| 21.94 | click / rattle | 0.15 |
-| 22.06 | click / rattle | 0.15 |
-| 22.18 | click / rattle | 0.15 |
-| 22.30 | click / rattle | 0.15 |
-| 22.42 | click / rattle | 0.15 |
-| 22.54 | click / rattle | 0.15 |
-| 22.66 | click / rattle | 0.15 |
-| 22.78 | click / rattle | 0.15 |
+| 3.05 | hum | 0.5 |
+| 4.60 | growl | 1.0 |
+| 6.20 | growl | 0.8 |
+| 7.60 | growl | 0.8 |
+| 8.10 | growl | 0.7 |
+| 8.50 | growl | 0.7 |
+| 9.40 | thud | 0.4 |
+| 9.60 | riser | 0.25 |
+| 10.60 | growl | 1.0 |
+| 11.70 | stinger | 0.25 |
+| 12.50 | note | 0.7 |
+| 12.50 | thud | 0.3 |
+| 12.95 | note | 0.7 |
+| 13.41 | note | 0.7 |
+| 13.41 | thud | 0.3 |
+| 13.86 | note | 0.7 |
+| 14.32 | note | 0.7 |
+| 14.32 | thud | 0.3 |
+| 14.77 | note | 0.7 |
+| 15.23 | note | 0.7 |
+| 15.23 | thud | 0.3 |
+| 15.68 | note | 0.7 |
+| 16.14 | note | 0.7 |
+| 16.14 | thud | 0.3 |
+| 16.59 | note | 0.7 |
+| 17.05 | note | 0.7 |
+| 17.05 | thud | 0.3 |
+| 17.50 | note | 0.7 |
+| 17.95 | note | 0.7 |
+| 17.95 | thud | 0.3 |
+| 18.41 | note | 0.7 |
+| 18.86 | note | 0.7 |
+| 18.86 | thud | 0.3 |
+| 19.32 | note | 0.7 |
+| 19.60 | tada | 0.6 |
+| 19.77 | note | 0.7 |
+| 19.80 | hum | 0.3 |
+| 19.90 | tick | 0.15 |
+| 20.02 | tick | 0.15 |
+| 20.14 | tick | 0.15 |
+| 20.23 | note | 0.7 |
+| 20.26 | tick | 0.15 |
+| 20.38 | tick | 0.15 |
+| 20.50 | tick | 0.15 |
+| 20.62 | tick | 0.15 |
+| 20.68 | note | 0.7 |
+| 20.74 | tick | 0.15 |
+| 20.86 | tick | 0.15 |
+| 20.98 | tick | 0.15 |
+| 21.10 | tick | 0.15 |
+| 21.14 | note | 0.7 |
+| 21.22 | tick | 0.15 |
+| 21.34 | tick | 0.15 |
+| 21.46 | tick | 0.15 |
+| 21.58 | tick | 0.15 |
+| 21.59 | note | 0.7 |
+| 21.70 | tick | 0.15 |
+| 21.82 | tick | 0.15 |
+| 21.94 | tick | 0.15 |
+| 22.06 | tick | 0.15 |
+| 22.18 | tick | 0.15 |
+| 22.30 | tick | 0.15 |
+| 22.42 | tick | 0.15 |
+| 22.54 | tick | 0.15 |
+| 22.66 | tick | 0.15 |
+| 22.78 | tick | 0.15 |
+
+</details>
+
+## Self checkout vs ONE banana
+File: `silent/WG_selfcheckout_silent.mp4`
+
+**Direction:** Supermarket ambience (crowd murmur, trolley squeaks). 0.0 self-checkout error beep + robotic voice "unexpected item in bagging area". 1.5 scanner beep. 2.0 error beep + robot voice again. 4.0 plastic bag rustle. 5.6 hand pats machine. 6.0-7.6 impatient sighs, foot tapping, someone mutters. 8.8-10.4 rapid touchscreen taps (lots). 10.4 robot voice "unexpected item" again + teen groan. 11.2 alarm siren + guard running footsteps. 12.8 police sirens + helicopter. 14.6 crowd gasp. 16.4 cheerful "thank you for shopping" chime, then long receipt printer whirr until 19.4. 19.4 TV news jingle + anchor talking (gibberish news voice).
+
+<details><summary>Exact hit timings (seconds)</summary>
+
+| t | cue | gain |
+|---|---|---|
+| 0.00 | beep | 0.8 |
+| 0.60 | hum | 0.4 |
+| 1.50 | beep | 0.4 |
+| 2.00 | beep | 0.8 |
+| 3.30 | beep | 0.8 |
+| 4.00 | whoosh | 0.3 |
+| 5.60 | thud | 0.3 |
+| 6.00 | step | 0.15 |
+| 6.33 | step | 0.15 |
+| 6.67 | step | 0.15 |
+| 7.00 | step | 0.15 |
+| 7.00 | hum | 0.2 |
+| 7.33 | step | 0.15 |
+| 7.60 | step | 0.2 |
+| 7.67 | step | 0.15 |
+| 7.93 | step | 0.2 |
+| 8.00 | step | 0.15 |
+| 8.27 | step | 0.2 |
+| 8.60 | step | 0.2 |
+| 8.80 | tick | 0.3 |
+| 8.84 | tick | 0.3 |
+| 8.87 | tick | 0.3 |
+| 8.91 | tick | 0.3 |
+| 8.94 | tick | 0.3 |
+| 8.98 | tick | 0.3 |
+| 9.01 | tick | 0.3 |
+| 9.04 | tick | 0.3 |
+| 9.08 | tick | 0.3 |
+| 9.12 | tick | 0.3 |
+| 9.15 | tick | 0.3 |
+| 9.19 | tick | 0.3 |
+| 9.22 | tick | 0.3 |
+| 9.26 | tick | 0.3 |
+| 9.29 | tick | 0.3 |
+| 9.33 | tick | 0.3 |
+| 9.36 | tick | 0.3 |
+| 9.40 | tick | 0.3 |
+| 9.43 | tick | 0.3 |
+| 9.46 | tick | 0.3 |
+| 9.50 | tick | 0.3 |
+| 9.54 | tick | 0.3 |
+| 9.57 | tick | 0.3 |
+| 9.61 | tick | 0.3 |
+| 9.64 | tick | 0.3 |
+| 9.68 | tick | 0.3 |
+| 9.71 | tick | 0.3 |
+| 9.75 | tick | 0.3 |
+| 9.78 | tick | 0.3 |
+| 9.82 | tick | 0.3 |
+| 9.85 | tick | 0.3 |
+| 9.89 | tick | 0.3 |
+| 9.92 | tick | 0.3 |
+| 9.96 | tick | 0.3 |
+| 9.99 | tick | 0.3 |
+| 10.03 | tick | 0.3 |
+| 10.06 | tick | 0.3 |
+| 10.10 | tick | 0.3 |
+| 10.13 | tick | 0.3 |
+| 10.17 | tick | 0.3 |
+| 10.20 | tick | 0.3 |
+| 10.24 | tick | 0.3 |
+| 10.27 | tick | 0.3 |
+| 10.31 | tick | 0.3 |
+| 10.34 | tick | 0.3 |
+| 10.40 | beep | 0.8 |
+| 10.60 | stinger | 0.25 |
+| 11.20 | slide_up | 0.4 |
+| 11.50 | step | 0.3 |
+| 11.70 | slide_up | 0.4 |
+| 11.70 | step | 0.3 |
+| 11.90 | step | 0.3 |
+| 12.10 | step | 0.3 |
+| 12.20 | slide_up | 0.4 |
+| 12.30 | step | 0.3 |
+| 12.70 | slide_up | 0.4 |
+| 12.80 | rumble | 0.6 |
+| 13.20 | slide_up | 0.4 |
+| 13.70 | slide_up | 0.4 |
+| 14.20 | slide_up | 0.4 |
+| 14.60 | gasp | 0.6 |
+| 14.70 | slide_up | 0.4 |
+| 15.20 | slide_up | 0.4 |
+| 15.70 | slide_up | 0.4 |
+| 16.40 | chime | 0.6 |
+| 16.60 | tick | 0.15 |
+| 16.66 | tick | 0.15 |
+| 16.72 | tick | 0.15 |
+| 16.78 | tick | 0.15 |
+| 16.84 | tick | 0.15 |
+| 16.90 | tick | 0.15 |
+| 16.96 | tick | 0.15 |
+| 17.02 | tick | 0.15 |
+| 17.08 | tick | 0.15 |
+| 17.14 | tick | 0.15 |
+| 17.20 | tick | 0.15 |
+| 17.26 | tick | 0.15 |
+| 17.32 | tick | 0.15 |
+| 17.38 | tick | 0.15 |
+| 17.44 | tick | 0.15 |
+| 17.50 | tick | 0.15 |
+| 17.56 | tick | 0.15 |
+| 17.62 | tick | 0.15 |
+| 17.68 | tick | 0.15 |
+| 17.74 | tick | 0.15 |
+| 17.80 | tick | 0.15 |
+| 17.86 | tick | 0.15 |
+| 17.92 | tick | 0.15 |
+| 17.98 | tick | 0.15 |
+| 18.04 | tick | 0.15 |
+| 18.10 | tick | 0.15 |
+| 18.16 | tick | 0.15 |
+| 18.22 | tick | 0.15 |
+| 18.28 | tick | 0.15 |
+| 18.34 | tick | 0.15 |
+| 18.40 | tick | 0.15 |
+| 18.46 | tick | 0.15 |
+| 18.52 | tick | 0.15 |
+| 18.58 | tick | 0.15 |
+| 18.64 | tick | 0.15 |
+| 18.70 | tick | 0.15 |
+| 18.76 | tick | 0.15 |
+| 18.82 | tick | 0.15 |
+| 18.88 | tick | 0.15 |
+| 18.94 | tick | 0.15 |
+| 19.00 | tick | 0.15 |
+| 19.06 | tick | 0.15 |
+| 19.12 | tick | 0.15 |
+| 19.18 | tick | 0.15 |
+| 19.24 | tick | 0.15 |
+| 19.40 | tada | 0.5 |
+| 19.90 | hum | 0.3 |
+
+</details>

@@ -12,6 +12,7 @@ q='## Upload queue\nUpload in this order (3 per day). Title is the YouTube title
 q+=''.join(f'| {i+1} | renders/WG_{r[0]}.mp4 | {r[1]} | {r[2]}s |\n' for i,r in enumerate(rows))
 open(R+'/README.md','w').write(s[:a]+q+'\n'+s[b:])
 PY
+python3 $S/sfx/handoff.py
 cd /home/user/anonymouscreatorplaybook && git add wobbly-gags && git commit -qm "$1
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

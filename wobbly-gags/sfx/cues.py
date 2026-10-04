@@ -131,3 +131,18 @@ CUES['Gag18'] = [
     *[(19.9 + 0.12 * i, 'tick', 0.15, dict(pitch=0.5 + (i % 5) * 0.1)) for i in range(25)],
 ]
 AMB['Gag18'] = 'room'
+
+# Gag19 self checkout
+CUES['Gag19'] = [
+    (0.0, 'beep', 0.8, dict(d=0.5, pitch=0.7)), (0.6, 'hum', 0.4, dict(d=0.8, pitch=0.6)),
+    (1.5, 'beep', 0.4, dict(d=0.1, pitch=1.5)), (2.0, 'beep', 0.8, dict(d=0.5, pitch=0.7)), (3.3, 'beep', 0.8, dict(d=0.5, pitch=0.7)),
+    (4.0, 'whoosh', 0.3), (5.6, 'thud', 0.3, dict(pitch=1.5)),
+    *steps(6.0, 8.0, 3.0, 0.15), (7.0, 'hum', 0.2, dict(d=0.5, pitch=0.9)),
+    *steps(7.6, 8.8, 3.0, 0.2, 1.2), *[(8.8 + 0.035 * i, 'tick', 0.3, dict(pitch=1.2)) for i in range(45)],
+    (10.4, 'beep', 0.8, dict(d=0.5, pitch=0.7)), (10.6, 'stinger', 0.25),
+    *[(11.2 + 0.5 * i, 'slide_up', 0.4, dict(d=0.25, pitch=1.0 + (i % 2) * 0.3)) for i in range(10)], *steps(11.5, 12.3, 5, 0.3, 0.8),
+    (12.8, 'rumble', 0.6, dict(d=3.6, pitch=3)), (14.6, 'gasp', 0.6), (16.4, 'chime', 0.6),
+    *[(16.6 + 0.06 * i, 'tick', 0.15, dict(pitch=1.8)) for i in range(45)],
+    (19.4, 'tada', 0.5), (19.9, 'hum', 0.3, dict(d=3.5, pitch=1.2)),
+]
+AMB['Gag19'] = 'room'
