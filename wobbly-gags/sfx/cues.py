@@ -85,3 +85,16 @@ CUES['Gag15'] = [
     (9.6, 'buzz', 0.6, dict(d=3.0, pitch=0.8)), (10.4, 'stinger', 0.35),
 ]
 AMB['Gag15'] = 'room'
+
+# Gag16 bus on time
+CUES['Gag16'] = [
+    *[(0.9 + 0.8 * i, 'beep', 0.18, dict(d=0.1, pitch=1.2)) for i in range(5)],
+    *[(0.5 + 0.77 * i, 'drip', 0.25) for i in range(6)],
+    (4.6, 'rumble', 0.6, dict(d=1.6, pitch=1.6)), (4.7, 'hum', 0.25, dict(d=0.5, pitch=1.7)),
+    (5.55, 'splat', 1.0, dict(d=0.6, pitch=0.7)), (5.6, 'whoosh', 0.7, dict(d=0.5, pitch=0.6)),
+    (6.6, 'stinger', 0.35),
+    (8.2, 'chime', 0.5), (8.5, 'squeak', 0.15, dict(pitch=2.2)), (8.8, 'squeak', 0.15, dict(pitch=2.5)), (9.1, 'squeak', 0.15, dict(pitch=2.3)),
+    (9.4, 'rumble', 0.6, dict(d=1.0, pitch=1.6)), (10.0, 'buzz', 0.2, dict(d=0.3, pitch=2)), (10.4, 'whoosh', 0.3, dict(d=0.4, pitch=0.6)),
+    (11.0, 'pop', 0.4), *steps(11.3, 13.5, 2.6, 0.2),
+]
+AMB['Gag16'] = 'rain:8.2'

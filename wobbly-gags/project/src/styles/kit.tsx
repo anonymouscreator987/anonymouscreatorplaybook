@@ -128,7 +128,7 @@ export const Face: React.FC<{fp: FaceP; skin: string; uid: string; nomouth?: boo
 export type PP = {
   kind: 'teen' | 'mum'; x: number; s: number; hip: number; sy: number;
   lf: P; rf: P; lh: P; rh: P; fpl: number; fpr: number;
-  fp: FaceP; tilt: number; silh?: boolean; bob?: number; uid: string; flip?: boolean; socks?: [string, string];
+  fp: FaceP; tilt: number; silh?: boolean; bob?: number; uid: string; flip?: boolean; socks?: [string, string]; look?: {top?: string; top2?: string; pants?: string; shoe?: string; hair?: string; skin?: string; tie?: string; shades?: boolean; cap?: string};
 };
 export const Person: React.FC<PP> = (q) => {
   const teen = q.kind === 'teen';
@@ -141,11 +141,12 @@ export const Person: React.FC<PP> = (q) => {
   const loc = (p: P): P => [((p[0] - q.x) / sxx) * fx, (p[1] - G) / syy];
   const L = teen ? 170 : 160, AL = teen ? 135 : 120;
   const hip = q.hip, torso = teen ? 270 : 250, neckY = hip - torso;
-  const skin = fill(SKIN);
-  const pants = fill(teen ? '#7886B0' : '#C57FCB');
-  const shoe = fill(teen ? '#F58FBA' : '#7DB8E8');
-  const top = fill(teen ? '#A4AAB5' : '#C57FCB');
-  const top2 = fill(teen ? '#8E95A1' : '#A965B3');
+  const L0 = q.look || {};
+  const skin = fill(L0.skin || SKIN);
+  const pants = fill(L0.pants || (teen ? '#7886B0' : '#C57FCB'));
+  const shoe = fill(L0.shoe || (teen ? '#F58FBA' : '#7DB8E8'));
+  const top = fill(L0.top || (teen ? '#A4AAB5' : '#C57FCB'));
+  const top2 = fill(L0.top2 || (teen ? '#8E95A1' : '#A965B3'));
   const lf = loc(q.lf), rf = loc(q.rf), lh = loc(q.lh), rh = loc(q.rh);
   const legL = ik([-14, hip], [lf[0], lf[1] - 22], -1, L, L);
   const legR = ik([14, hip], [rf[0], rf[1] - 22], -1, L, L);
@@ -184,7 +185,8 @@ export const Person: React.FC<PP> = (q) => {
       ) : (
         <path d={`M-${hw} ${neckY + 10} Q-${hw + 6} ${hip - 100} -${hw + 4} ${hip + 24} L-96 ${hip + 150} Q0 ${hip + 176} 96 ${hip + 150} L${hw + 4} ${hip + 24} Q${hw + 6} ${hip - 100} ${hw} ${neckY + 10} Q0 ${neckY - 26} -${hw} ${neckY + 10}Z`} fill={top} stroke={ink} strokeWidth={8} strokeLinejoin="round" />
       )}
-      {!si && teen && <g>
+      {!si && L0.tie && <path d={`M4 ${neckY + 4} L-10 ${neckY + 40} L4 ${hip - 60} L18 ${neckY + 40}Z`} fill={L0.tie} stroke={INK} strokeWidth={5} strokeLinejoin="round" />}
+      {!si && teen && !L0.tie && <g>
         <rect x={-26} y={hip - 70} width={60} height={46} rx={14} fill="none" stroke={INK} strokeWidth={5} opacity={0.5} />
         <path d={`M-10 ${neckY + 6} L-14 ${neckY + 90} M12 ${neckY + 6} L16 ${neckY + 80}`} stroke="#fff" strokeWidth={5} strokeLinecap="round" />
       </g>}
@@ -200,7 +202,7 @@ export const Person: React.FC<PP> = (q) => {
         {!teen && si && <ellipse cx={0} cy={6} rx={118} ry={118} fill={SIL} stroke={ink} strokeWidth={8} />}
         <ellipse cx={0} cy={0} rx={teen ? 104 : 100} ry={teen ? 124 : 112} fill={skin} stroke={ink} strokeWidth={8} />
         {teen ? (
-          <path d="M-96 -30 Q-110 -120 -20 -122 Q60 -140 98 -60 Q60 -78 20 -66 Q-30 -88 -60 -52 Q-80 -50 -96 -30Z" fill={fill('#3B2A24')} stroke={ink} strokeWidth={7} strokeLinejoin="round" />
+          <path d="M-96 -30 Q-110 -120 -20 -122 Q60 -140 98 -60 Q60 -78 20 -66 Q-30 -88 -60 -52 Q-80 -50 -96 -30Z" fill={fill(L0.hair || '#3B2A24')} stroke={ink} strokeWidth={7} strokeLinejoin="round" />
         ) : (
           <g>
             {['#F7A6C8', '#8FD3F4', '#F7E27A', '#A7E3A0', '#F7A6C8'].map((c, i) => (
@@ -209,7 +211,9 @@ export const Person: React.FC<PP> = (q) => {
             <path d="M-100 -20 Q-60 -64 0 -58 Q60 -64 100 -20 Q50 -34 0 -30 Q-50 -34 -100 -20Z" fill={fill('#6B3B2A')} stroke={ink} strokeWidth={6} />
           </g>
         )}
-        {!si && <Face fp={q.fp} skin={SKIN} uid={q.uid} />}
+        {!si && <Face fp={q.fp} skin={L0.skin || SKIN} uid={q.uid} />}
+        {!si && L0.shades && <g><rect x={-50} y={-44} width={60} height={40} rx={12} fill={INK} /><rect x={30} y={-44} width={60} height={40} rx={12} fill={INK} /><line x1={10} y1={-30} x2={30} y2={-30} stroke={INK} strokeWidth={6} /></g>}
+        {!si && L0.cap && <g><path d="M-100 -60 Q-90 -150 10 -150 Q100 -146 104 -60Z" fill={L0.cap} stroke={INK} strokeWidth={7} /><path d="M60 -66 Q150 -70 170 -50 L100 -50Z" fill={L0.cap} stroke={INK} strokeWidth={6} /></g>}
       </g>
       {/* arms on top */}
       {hand(lh, 'l')}

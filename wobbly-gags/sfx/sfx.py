@@ -110,6 +110,8 @@ def render(cues, dur, path, amb=None):
     if amb == 'room': out += lpf(noise(dur), 200) * 0.025
     if amb == 'night': out += lpf(noise(dur), 140) * 0.02
     if amb == 'outdoor': out += bpf(noise(dur), 300, 2500) * 0.015
+    if amb and amb.startswith('rain:'):
+        tr = float(amb.split(':')[1]); r = bpf(noise(dur), 800, 8000) * 0.05; r[int(tr * SR):] *= 0; out += r
     for c in cues:
         t, kind, g = c[0], c[1], c[2]; kw = c[3] if len(c) > 3 else {}
         x = KINDS[kind](**kw) * g; s = int(t * SR)
