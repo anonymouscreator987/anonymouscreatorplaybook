@@ -353,3 +353,38 @@ File: `silent/WG_waving_silent.mp4`
 | 21.20 | thud | 0.3 |
 
 </details>
+
+## Airport hand dryer: "gentle"
+File: `silent/WG_handdryer_silent.mp4`
+
+**Direction:** Airport restroom echo + distant boarding announcements. 0.0 EXTREMELY loud jet-engine hand dryer roar until 7.4 (use a real jet/dryer recording), cheeks flapping (rubbery flutter). 3.4 strained grunting (real voice). 5.2 dryer powering up like a turbine + alarm beep, panicked yell. 7.4 ceiling crash + debris falling. 8.0-11.0 wind rushing, long falling-upward scream (real voice), jet plane flyby at 9.6, passengers gasp. 11.0 silent space ambience, slow ethereal hum. 12.3 astronaut radio-muffled 'towel?' 13.0 paper towel crinkle. 15.4 restroom again: footsteps, a man's nervous gulp at 17.0, paper towel dispenser pull at 18.2.
+
+<details><summary>Exact hit timings (seconds)</summary>
+
+| t | cue | gain |
+|---|---|---|
+| 0.00 | rumble | 0.9 |
+| 0.00 | whoosh | 0.6 |
+| 0.40 | hum | 0.3 |
+| 3.40 | hum | 0.4 |
+| 5.20 | riser | 0.6 |
+| 5.20 | beep | 0.4 |
+| 5.40 | gasp | 0.6 |
+| 7.40 | crash | 1.0 |
+| 7.45 | thud | 0.8 |
+| 8.00 | whoosh | 0.7 |
+| 9.20 | hum | 0.6 |
+| 9.60 | rumble | 0.5 |
+| 11.00 | chime | 0.3 |
+| 12.30 | hum | 0.25 |
+| 13.00 | pop | 0.2 |
+| 15.40 | chime | 0.2 |
+| 15.40 | step | 0.2 |
+| 15.73 | step | 0.2 |
+| 16.07 | step | 0.2 |
+| 16.40 | step | 0.2 |
+| 16.73 | step | 0.2 |
+| 17.00 | gulp | 0.4 |
+| 18.20 | whoosh | 0.2 |
+
+</details>

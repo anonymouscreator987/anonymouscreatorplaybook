@@ -160,3 +160,15 @@ CUES['Gag20'] = [
     (19.4, 'whoosh', 0.2), (20.0, 'stinger', 0.3), (20.6, 'slide_down', 0.6, dict(d=0.4, pitch=2)), (21.2, 'thud', 0.3, dict(pitch=1.4)),
 ]
 AMB['Gag20'] = 'outdoor'
+
+# Gag21 hand dryer
+CUES['Gag21'] = [
+    (0.0, 'rumble', 0.9, dict(d=7.4, pitch=4)), (0.0, 'whoosh', 0.6, dict(d=2.0, pitch=0.5)),
+    (0.4, 'hum', 0.3, dict(d=1.5, pitch=0.8)), (3.4, 'hum', 0.4, dict(d=1.6, pitch=1.2)),
+    (5.2, 'riser', 0.6, dict(d=2.2, pitch=1.4)), (5.2, 'beep', 0.4, dict(d=0.3, pitch=1.4)), (5.4, 'gasp', 0.6),
+    (7.4, 'crash', 1.0), (7.45, 'thud', 0.8, dict(pitch=0.7)),
+    (8.0, 'whoosh', 0.7, dict(d=3.0, pitch=0.4)), (9.2, 'hum', 0.6, dict(d=1.6, pitch=2.2)), (9.6, 'rumble', 0.5, dict(d=1.4, pitch=1.2)),
+    (11.0, 'chime', 0.3, dict(d=2.0, pitch=0.5)), (12.3, 'hum', 0.25, dict(d=0.4, pitch=0.9)), (13.0, 'pop', 0.2),
+    (15.4, 'chime', 0.2), *steps(15.4, 16.8, 3.0, 0.2), (17.0, 'gulp', 0.4), (18.2, 'whoosh', 0.2, dict(d=0.2, pitch=2)),
+]
+AMB['Gag21'] = 'room'
