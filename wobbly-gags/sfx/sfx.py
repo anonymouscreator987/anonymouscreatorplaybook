@@ -103,6 +103,18 @@ def tada(d=1.0, pitch=1.0):
         out[s:] += np.sign(np.sin(2 * np.pi * f * pitch * t)) * 0.3 * np.exp(-t * 3)
     return norm(lpf(out, 3000))
 
+def growl(d=0.8, pitch=1.0):
+    t = np.arange(int(d * SR)) / SR
+    f = 70 * pitch * (1 + 0.25 * np.sin(2 * np.pi * 3 * t) + 0.1 * np.sin(2 * np.pi * 11 * t))
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR + 2.5 * np.sin(2 * np.pi * 2 * pitch * 70 * t))
+    x *= (0.6 + 0.4 * np.abs(np.sin(2 * np.pi * 6 * t)))
+    x += 0.3 * lpf(noise(d), 300 * pitch) * np.abs(np.sin(2 * np.pi * 9 * t))
+    return norm(lpf(x, 900 * pitch) * env(len(t), 0.06, 0.15))
+def note(d=0.4, pitch=1.0):  # growly musical note, pitch = frequency ratio vs 110Hz
+    t = np.arange(int(d * SR)) / SR
+    f = 110 * pitch * (1 + 0.02 * np.sin(2 * np.pi * 5 * t))
+    x = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * 0.5 + 0.5 * np.sin(4 * np.pi * np.cumsum(f) / SR)
+    return norm(lpf(x * (0.7 + 0.3 * np.sin(2 * np.pi * 14 * t)), 1200) * env(len(t), 0.03, 0.12))
 KINDS = {k: v for k, v in globals().items() if callable(v) and k not in ('env', 'lp', 'lpf', 'bpf', 'noise', 'sweep', 'norm')}
 
 def render(cues, dur, path, amb=None):

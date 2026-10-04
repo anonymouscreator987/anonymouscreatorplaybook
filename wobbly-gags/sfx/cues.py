@@ -114,3 +114,20 @@ CUES['Gag17'] = [
     (12.3, 'whoosh', 0.4), (15.2, 'chime', 0.4), (16.0, 'hum', 0.15, dict(d=2.0, pitch=0.9)),
 ]
 AMB['Gag17'] = 'room'
+
+# Gag18 exam stomach choir
+_mel = [1.0, 1.0, 1.5, 1.5, 1.68, 1.68, 1.5, 1.33, 1.33, 1.26, 1.26, 1.12, 1.12, 1.0, 1.5, 1.5, 1.33, 1.33, 1.26, 1.26, 1.12]
+CUES['Gag18'] = [
+    (0.0, 'growl', 1.0, dict(d=1.3, pitch=0.9)), (0.6, 'gasp', 0.25),
+    *[(1.6 + 0.5 * i, 'tick', 0.12, dict(pitch=1.3)) for i in range(3)],
+    (3.0, 'buzz', 0.4, dict(d=0.25, pitch=0.9)), (3.05, 'hum', 0.5, dict(d=0.3, pitch=1.4)),
+    (4.6, 'growl', 1.0, dict(d=1.0, pitch=1.2)),
+    (6.2, 'growl', 0.8, dict(d=0.9, pitch=1.6)), (7.6, 'growl', 0.8, dict(d=0.6, pitch=1.1)), (8.1, 'growl', 0.7, dict(d=0.5, pitch=1.4)), (8.5, 'growl', 0.7, dict(d=0.5, pitch=1.8)),
+    (9.4, 'thud', 0.4, dict(pitch=1.4)), (9.6, 'riser', 0.25, dict(d=1.0, pitch=0.6)),
+    (10.6, 'growl', 1.0, dict(d=1.1, pitch=0.55)), (11.7, 'stinger', 0.25),
+    *[(12.5 + 0.4545 * i, 'note', 0.7, dict(d=0.42, pitch=p)) for i, p in enumerate(_mel)],
+    *[(12.5 + 0.909 * i, 'thud', 0.3, dict(pitch=0.7)) for i in range(8)],
+    (19.6, 'tada', 0.6), (19.8, 'hum', 0.3, dict(d=3.5, pitch=0.7)),
+    *[(19.9 + 0.12 * i, 'tick', 0.15, dict(pitch=0.5 + (i % 5) * 0.1)) for i in range(25)],
+]
+AMB['Gag18'] = 'room'
