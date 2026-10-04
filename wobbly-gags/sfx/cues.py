@@ -72,3 +72,16 @@ CUES['Gag14'] = [
     (10.4, 'stinger', 0.45), (10.4, 'buzz', 0.2, dict(d=0.6, pitch=0.6)),
 ]
 AMB['Gag14'] = 'room'
+
+# Gag15 charger cable
+CUES['Gag15'] = [
+    *[(0.3 + 0.35 * i, 'tick', 0.12, dict(pitch=1.4)) for i in range(4)],
+    (1.8, 'hum', 0.2, dict(d=0.4, pitch=1.3)), *steps(2.4, 3.1, 3.0, 0.2),
+    (3.1, 'boing', 0.8), (3.15, 'whoosh', 0.4), (3.5, 'bonk', 0.5, dict(pitch=1.5)),
+    (3.8, 'gasp', 0.3), (5.0, 'slide_down', 0.3, dict(d=0.6)), (5.6, 'thud', 0.4, dict(pitch=1.3)),
+    (6.0, 'tada', 0.2, dict(pitch=0.8)),
+    *steps(7.4, 8.4, 3.0, 0.2, 1.2),
+    (9.0, 'pop', 0.8), (9.1, 'gasp', 0.4),
+    (9.6, 'buzz', 0.6, dict(d=3.0, pitch=0.8)), (10.4, 'stinger', 0.35),
+]
+AMB['Gag15'] = 'room'
