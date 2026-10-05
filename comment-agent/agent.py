@@ -172,7 +172,12 @@ def unanswered_comments(yt, channel_id, hours, limit_pages=3):
 
 
 def has_own_top_comment(yt, video_id, channel_id):
-    r = yt.commentThreads().list(part="snippet", videoId=video_id, order="time", maxResults=100).execute()
+    """True if the channel already commented, or if comments can't be read/posted (e.g. disabled)."""
+    try:
+        r = yt.commentThreads().list(part="snippet", videoId=video_id, order="time", maxResults=100).execute()
+    except HttpError as e:
+        print(f"skipping starter for {video_id}: {e.resp.status} {getattr(e, 'reason', '')}", file=sys.stderr)
+        return True
     return any(th["snippet"]["topLevelComment"]["snippet"].get("authorChannelId", {}).get("value") == channel_id
                for th in r.get("items", []))
 
