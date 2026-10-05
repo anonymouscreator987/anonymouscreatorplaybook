@@ -51,7 +51,7 @@ window (Code `</>` → **+ New** → ☁️ **Default** → ⚙️), paste this 
 ```
 mkdir -p /root/.claude
 cat > /root/.claude/settings.json <<'JSON'
-{"permissions":{"allow":["Bash(python comment-agent/agent.py:*)","Bash(git clone -q --depth 1 -b claude/determined-galileo-8no6z9 https://github.com/anonymouscreator987/anonymouscreatorplaybook /root/wg-agent)","Bash(cd /root/wg-agent)","Bash(pip install -q google-api-python-client google-auth)"]}}
+{"permissions":{"allow":["Bash(python /root/wg-agent/comment-agent/agent.py:*)","Bash(git clone -q --depth 1 -b claude/determined-galileo-8no6z9 https://github.com/anonymouscreator987/anonymouscreatorplaybook /root/wg-agent)","Bash(pip install -q google-api-python-client google-auth)","Bash(cat /root/.claude/settings.json)"]}}
 JSON
 ```
 

@@ -248,10 +248,10 @@ def write_starter(client, video):
 
 # ---------------- main ----------------
 
-REPLY_RULES = """Pick the comments worth replying to (at most MAX per run).
-Reply to: jokes you can riff on, genuine questions, people sharing their own embarrassing story,
-the funniest or most-liked comments. Skip: bare emojis, 'first', generic 'nice video', anything you
-can't add to. Flag as spam: scams, links, self-promotion, bots, hate or harassment."""
+REPLY_RULES = """Reply to nearly every real comment (at most MAX per run): this is a growing channel and every
+reply counts. Even short ones like "lol", "I can relate" or "this is me" get a quick, playful one-liner that
+adds a twist. Only skip: a bare single emoji, plain "first", or anything you truly can't respond to kindly.
+Flag as spam: scams, links, self-promotion, bots, hate or harassment."""
 
 STARTER_RULES = """For each upload listed under needs_starter, write the channel's own first comment: get people
 talking, e.g. ask viewers for their own version of the embarrassing moment or a quick either/or
