@@ -105,7 +105,9 @@ Register the full video plus one composition per beat (`Beat01`…). Reuse scene
 1. **Script** (`abyss-protocol-script`): beats.json with VO, visuals and SFX plan, all facts verified.
 2. **Silent build:** scenes, estimated captions, render, verify, push.
 3. **Audio pass** (`abyss-protocol-audio`): VO, Whisper captions, real SFX, music, mix.
-4. **Publish:** 4K render, title, thumbnail, description with credits, chapters.
+4. **Review** (`abyss-protocol-review`): fresh critics judge the render, the facts and the mix until they return SHIP.
+5. **Publish:** 4K render, title, thumbnail, description with credits, chapters.
+6. **Vertical cuts** (`abyss-protocol-shorts`): 3 to 5 native 9:16 cuts for Shorts, TikTok and Reels.
 
 ## Quality gate (run before every push)
 
