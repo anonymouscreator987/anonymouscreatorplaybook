@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python comment-agent/agent.py:*)",
+      "Bash(python3 comment-agent/agent.py:*)",
+      "Bash(pip install -q google-api-python-client google-auth)",
+      "Bash(git pull:*)"
+    ]
+  }
+}
