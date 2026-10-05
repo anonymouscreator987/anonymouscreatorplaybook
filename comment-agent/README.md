@@ -45,6 +45,16 @@ session title bar → **Edit** → add environment variables:
 Leave `COMMENT_AGENT_LIVE` unset at first: runs are dry runs that only report what they *would* post.
 When you like the tone, add `COMMENT_AGENT_LIVE` = `true`. Remove it to pause posting.
 
+### 4. Allow it to post on its own (one time)
+Claude won't post publicly from an unattended run unless you allow it. In the same **Edit environment**
+window (Code `</>` → **+ New** → ☁️ **Default** → ⚙️), paste this into the **Setup script** box and **Save**:
+```
+mkdir -p /root/.claude
+cat > /root/.claude/settings.json <<'JSON'
+{"permissions":{"allow":["Bash(python comment-agent/agent.py:*)","Bash(git clone -q --depth 1 -b claude/determined-galileo-8no6z9 https://github.com/anonymouscreator987/anonymouscreatorplaybook /root/wg-agent)","Bash(cd /root/wg-agent)","Bash(pip install -q google-api-python-client google-auth)"]}}
+JSON
+```
+
 ## Running it by hand
 ```
 pip install -r comment-agent/requirements.txt

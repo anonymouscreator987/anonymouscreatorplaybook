@@ -284,7 +284,11 @@ def cmd_fetch(args):
         c["video_title"] = titles.get(c["video_id"], "?")
     out = {"channel": channel_name, "channel_id": channel_id, "fetched_at": dt.datetime.now(dt.timezone.utc).isoformat(),
            "max_replies": args.max_replies, "comments": comments, "needs_starter": needs}
-    json.dump(out, sys.stdout, ensure_ascii=False, indent=1)
+    if args.out:
+        with open(args.out, "w") as fh:
+            json.dump(out, fh, ensure_ascii=False, indent=1)
+    else:
+        json.dump(out, sys.stdout, ensure_ascii=False, indent=1)
     print(f"\n{len(comments)} unanswered comments, {len(needs)} uploads need a starter", file=sys.stderr)
 
 
@@ -371,7 +375,9 @@ def main():
     act.add_argument("--live", action="store_true", help="actually post (default: dry run)")
     act.add_argument("--hold-spam", action="store_true", help="hold spam-flagged comments for review (with --live)")
     sub.add_parser("persona", parents=[common], help="print the voice, rules and plan format").set_defaults(fn=cmd_persona)
-    sub.add_parser("fetch", parents=[common, gather], help="print unanswered comments as JSON").set_defaults(fn=cmd_fetch)
+    pf = sub.add_parser("fetch", parents=[common, gather], help="print unanswered comments as JSON")
+    pf.add_argument("--out", help="write the JSON to this file instead of stdout")
+    pf.set_defaults(fn=cmd_fetch)
     p = sub.add_parser("post", parents=[common, act], help="post a plan.json written from a fetch")
     p.add_argument("plan")
     p.add_argument("--inbox", required=True, help="the JSON that `fetch` produced")
