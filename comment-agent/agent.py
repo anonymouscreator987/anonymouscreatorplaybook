@@ -8,12 +8,21 @@ Each run:
 It is stateless: "already handled" is read back from YouTube itself (a thread the channel has
 replied in is skipped), so it can run from a fresh checkout on any schedule.
 
-Dry run is the default. Pass --live to actually post.
+Two ways to run it:
+
+  Free (Claude subscription, via a Claude Routine): the Routine session runs
+      python agent.py fetch > inbox.json      # unanswered comments + uploads needing a starter
+      (Claude reads inbox.json and writes plan.json, following `python agent.py persona`)
+      python agent.py post plan.json --inbox inbox.json --live
+  Standalone (needs a paid ANTHROPIC_API_KEY):
+      python agent.py auto --live
+
+Dry run is the default everywhere. Pass --live to actually post.
 
 Env vars:
-  ANTHROPIC_API_KEY                 Claude API key
   YT_CLIENT_ID, YT_CLIENT_SECRET    Google OAuth client (Desktop app type)
   YT_REFRESH_TOKEN                  from get_token.py, authorised for the channel
+  ANTHROPIC_API_KEY                 only for `auto`
 """
 
 import argparse
@@ -23,7 +32,6 @@ import os
 import random
 import sys
 
-import anthropic
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -186,6 +194,7 @@ def hold_for_review(yt, comment_id):
 # ---------------- Claude ----------------
 
 def ask_claude(client, schema, user_text):
+    import anthropic  # noqa: F401  (only needed for `auto`)
     resp = client.beta.messages.create(
         model=MODEL,
         max_tokens=16000,
@@ -234,53 +243,58 @@ def write_starter(client, video):
 
 # ---------------- main ----------------
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--live", action="store_true", help="actually post (default is a dry run that only prints)")
-    ap.add_argument("--hours", type=float, default=48, help="look at comments from the last N hours")
-    ap.add_argument("--max-replies", type=int, default=20, help="cap on replies per run")
-    ap.add_argument("--batch", type=int, default=60, help="max comments sent to Claude per run")
-    ap.add_argument("--starter-days", type=float, default=3, help="leave a starter comment on uploads from the last N days")
-    ap.add_argument("--no-starters", action="store_true", help="don't post starter comments")
-    ap.add_argument("--hold-spam", action="store_true", help="hold comments Claude marks as spam for review (needs --live)")
-    args = ap.parse_args()
+REPLY_RULES = """Pick the comments worth replying to (at most MAX per run).
+Reply to: jokes you can riff on, genuine questions, people sharing their own embarrassing story,
+the funniest or most-liked comments. Skip: bare emojis, 'first', generic 'nice video', anything you
+can't add to. Flag as spam: scams, links, self-promotion, bots, hate or harassment."""
 
+STARTER_RULES = """For each upload listed under needs_starter, write the channel's own first comment: get people
+talking, e.g. ask viewers for their own version of the embarrassing moment or a quick either/or
+question. One or two short lines, channel voice, no links, no 'subscribe'."""
+
+PLAN_FORMAT = """plan.json format:
+{"replies": [{"comment_id": "...", "reply": "..."}],
+ "starters": [{"video_id": "...", "comment": "..."}],
+ "spam": ["comment_id", ...]}"""
+
+
+def cmd_persona(args):
+    print(PERSONA)
+    print("\n" + REPLY_RULES.replace("MAX", str(args.max_replies)))
+    print("\n" + STARTER_RULES)
+    print("\n" + PLAN_FORMAT)
+
+
+def cmd_fetch(args):
     yt = youtube_client()
-    client = anthropic.Anthropic()
     channel_id, channel_name, uploads = my_channel(yt)
-    mode = "LIVE" if args.live else "DRY RUN"
-    print(f"[{mode}] channel: {channel_name} ({channel_id})")
-
-    posted = 0
-
-    # 1) starter comments on fresh uploads
+    needs = []
     if not args.no_starters:
-        for v in recent_uploads(yt, uploads, args.starter_days):
-            if has_own_top_comment(yt, v["id"], channel_id):
-                continue
-            text = write_starter(client, v)
-            print(f"\nSTARTER on '{v['title']}':\n  {text}")
-            if args.live:
-                post_top_comment(yt, channel_id, v["id"], text)
-                posted += 1
-                print("  -> posted (pin it in Studio if you like; the API can't pin)")
-
-    # 2) replies
+        needs = [v for v in recent_uploads(yt, uploads, args.starter_days) if not has_own_top_comment(yt, v["id"], channel_id)]
     comments = unanswered_comments(yt, channel_id, args.hours)
-    print(f"\n{len(comments)} unanswered comments in the last {args.hours:g}h")
-    if not comments:
-        return
-    # favour liked comments, keep some randomness so replies don't look mechanical
     comments.sort(key=lambda c: (c["likes"], random.random()), reverse=True)
     comments = comments[: args.batch]
     titles = video_titles(yt, {c["video_id"] for c in comments if c["video_id"]})
-    replies, spam = decide_replies(client, comments, titles, args.max_replies)
-    by_id = {c["comment_id"]: c for c in comments}
+    for c in comments:
+        c["video_title"] = titles.get(c["video_id"], "?")
+    out = {"channel": channel_name, "channel_id": channel_id, "fetched_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+           "max_replies": args.max_replies, "comments": comments, "needs_starter": needs}
+    json.dump(out, sys.stdout, ensure_ascii=False, indent=1)
+    print(f"\n{len(comments)} unanswered comments, {len(needs)} uploads need a starter", file=sys.stderr)
 
-    for d in replies:
+
+def execute(yt, channel_id, replies, starters, spam, by_id, live, hold_spam, max_replies):
+    mode = "LIVE" if live else "DRY RUN"
+    posted = 0
+    for st in starters:
+        print(f"\nSTARTER on {st['video_id']}:\n  {st['comment']}")
+        if live:
+            post_top_comment(yt, channel_id, st["video_id"], st["comment"])
+            posted += 1
+    for d in replies[:max_replies]:
         c = by_id[d["comment_id"]]
-        print(f"\n@{c['author']} on '{titles.get(c['video_id'], '?')}': {c['text'][:200]}\n  REPLY: {d['reply']}")
-        if args.live:
+        print(f"\n@{c['author']} on '{c.get('video_title', '?')}': {c['text'][:200]}\n  REPLY: {d['reply']}")
+        if live:
             try:
                 post_reply(yt, d["comment_id"], d["reply"])
                 posted += 1
@@ -289,18 +303,77 @@ def main():
                 if e.resp.status == 403 and "quota" in str(e).lower():
                     print("YouTube API daily quota reached; stopping.")
                     break
-
-    for d in spam:
-        c = by_id[d["comment_id"]]
-        print(f"\nSPAM? @{c['author']}: {c['text'][:200]}  ({d['why']})")
-        if args.live and args.hold_spam:
+    for cid in spam:
+        c = by_id[cid]
+        print(f"\nSPAM? @{c['author']}: {c['text'][:200]}")
+        if live and hold_spam:
             try:
-                hold_for_review(yt, d["comment_id"])
+                hold_for_review(yt, cid)
                 print("  -> held for review")
             except HttpError as e:
                 print(f"  !! failed to hold: {e}")
+    print(f"\n[{mode}] done: {min(len(replies), max_replies)} replies, {len(starters)} starters, {len(spam)} flagged, {posted} posted")
 
-    print(f"\n[{mode}] done: {len(replies)} replies planned, {len(spam)} flagged, {posted} posted")
+
+def cmd_post(args):
+    plan = json.load(open(args.plan))
+    inbox = json.load(open(args.inbox))
+    by_id = {c["comment_id"]: c for c in inbox["comments"]}
+    starter_ids = {v["id"] for v in inbox["needs_starter"]}
+    replies = [r for r in plan.get("replies", []) if r.get("comment_id") in by_id and r.get("reply", "").strip()]
+    starters = [s for s in plan.get("starters", []) if s.get("video_id") in starter_ids and s.get("comment", "").strip()]
+    spam = [c for c in plan.get("spam", []) if c in by_id]
+    dropped = len(plan.get("replies", [])) - len(replies) + len(plan.get("starters", [])) - len(starters)
+    if dropped:
+        print(f"ignored {dropped} plan entries that don't match the inbox")
+    yt = youtube_client() if args.live else None
+    execute(yt, inbox["channel_id"], replies, starters, spam, by_id, args.live, args.hold_spam, args.max_replies)
+
+
+def cmd_auto(args):
+    import anthropic
+    yt = youtube_client()
+    client = anthropic.Anthropic()
+    channel_id, channel_name, uploads = my_channel(yt)
+    print(f"[{'LIVE' if args.live else 'DRY RUN'}] channel: {channel_name} ({channel_id})")
+    starters = []
+    if not args.no_starters:
+        for v in recent_uploads(yt, uploads, args.starter_days):
+            if not has_own_top_comment(yt, v["id"], channel_id):
+                starters.append({"video_id": v["id"], "comment": write_starter(client, v)})
+    comments = unanswered_comments(yt, channel_id, args.hours)
+    comments.sort(key=lambda c: (c["likes"], random.random()), reverse=True)
+    comments = comments[: args.batch]
+    titles = video_titles(yt, {c["video_id"] for c in comments if c["video_id"]})
+    for c in comments:
+        c["video_title"] = titles.get(c["video_id"], "?")
+    replies, spam = (decide_replies(client, comments, titles, args.max_replies) if comments else ([], []))
+    execute(yt, channel_id, replies, starters, [d["comment_id"] for d in spam],
+            {c["comment_id"]: c for c in comments}, args.live, args.hold_spam, args.max_replies)
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument("--max-replies", type=int, default=15, help="cap on replies per run")
+    gather = argparse.ArgumentParser(add_help=False)
+    gather.add_argument("--hours", type=float, default=48, help="look at comments from the last N hours")
+    gather.add_argument("--batch", type=int, default=60, help="max comments considered per run")
+    gather.add_argument("--starter-days", type=float, default=3, help="starter comments on uploads from the last N days")
+    gather.add_argument("--no-starters", action="store_true", help="don't post starter comments")
+    act = argparse.ArgumentParser(add_help=False)
+    act.add_argument("--live", action="store_true", help="actually post (default: dry run)")
+    act.add_argument("--hold-spam", action="store_true", help="hold spam-flagged comments for review (with --live)")
+    sub.add_parser("persona", parents=[common], help="print the voice, rules and plan format").set_defaults(fn=cmd_persona)
+    sub.add_parser("fetch", parents=[common, gather], help="print unanswered comments as JSON").set_defaults(fn=cmd_fetch)
+    p = sub.add_parser("post", parents=[common, act], help="post a plan.json written from a fetch")
+    p.add_argument("plan")
+    p.add_argument("--inbox", required=True, help="the JSON that `fetch` produced")
+    p.set_defaults(fn=cmd_post)
+    sub.add_parser("auto", parents=[common, gather, act], help="fetch + decide with the Claude API + post").set_defaults(fn=cmd_auto)
+    args = ap.parse_args()
+    args.fn(args)
 
 
 if __name__ == "__main__":
